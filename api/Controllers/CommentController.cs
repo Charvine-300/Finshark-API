@@ -17,9 +17,11 @@ namespace api.Controllers
     public class CommentController : ControllerBase
     {
         private readonly ICommentRepository _commentRepo;
-        public CommentController(ICommentRepository commentRepo)
+        private readonly IStockRepository _stockRepo;
+        public CommentController(ICommentRepository commentRepo, IStockRepository stockRepo)
         {
             _commentRepo = commentRepo;
+            _stockRepo = stockRepo;
         }
 
         [HttpGet]
@@ -27,6 +29,43 @@ namespace api.Controllers
             var comments = await _commentRepo.GetCommentsAsync();
             var commentsList = comments.Select(x => x.ToCommentDTO());
             return Ok(commentsList);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetByIdAsync([FromRoute] int id) {
+            var comment = await _commentRepo.GetCommentByIdAsync(id);
+
+            if (comment == null) {
+                return NotFound();
+            } else {
+                return Ok(comment.ToCommentDTO());
+            }
+        }
+
+        [HttpPost("{stockId}")]
+        public async Task<IActionResult> CreateCommentForStock([FromRoute] int stockId, CreateCommentDTO commentDTO) {
+
+            if (!await _stockRepo.StockExists(stockId)) {
+                return BadRequest("Stock does not exist");
+            } else {
+                var commentModel = commentDTO.ToCreateCommentDTO(stockId);
+
+                await _commentRepo.CreateCommentAsync(commentModel);
+
+               return Ok(commentModel.ToCommentDTO());
+            }
+        }
+
+        [HttpPut]
+        [Route("{id}")]
+        public async Task<IActionResult> UpdateComment([FromRoute] int id, [FromBody] UpdateCommentDTO commentDTO) {
+            var comment = await _commentRepo.UpdateCommentAsync(id, commentDTO.ToUpdateCommentDTO());
+
+            if (comment == null) {
+                return NotFound();
+            } 
+
+            return Ok(comment.ToCommentDTO());
         }
     }
 }
