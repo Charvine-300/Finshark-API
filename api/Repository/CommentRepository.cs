@@ -51,5 +51,18 @@ return comment;
 
             return existingComment;
         } 
+
+        public async Task<Comment> DeleteCommentAsync(int id) {
+             var existingComment = await _context.Comment.FindAsync(id);
+
+            if (existingComment == null) {
+                return null;
+            } 
+
+            _context.Comment.Remove(existingComment);
+            await _context.SaveChangesAsync();
+
+            return existingComment;
+        }
     }
 }

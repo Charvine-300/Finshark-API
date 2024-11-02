@@ -26,13 +26,16 @@ namespace api.Controllers
 
         [HttpGet]
         public async Task<IActionResult> GetAllAsync() {
+                        if(!ModelState.IsValid) return BadRequest(ModelState); // Data validation via JSON
+
             var comments = await _commentRepo.GetCommentsAsync();
             var commentsList = comments.Select(x => x.ToCommentDTO());
             return Ok(commentsList);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<IActionResult> GetByIdAsync([FromRoute] int id) {
+                        if(!ModelState.IsValid) return BadRequest(ModelState); // Data validation via JSON
             var comment = await _commentRepo.GetCommentByIdAsync(id);
 
             if (comment == null) {
@@ -42,8 +45,9 @@ namespace api.Controllers
             }
         }
 
-        [HttpPost("{stockId}")]
+        [HttpPost("{stockId:int}")]
         public async Task<IActionResult> CreateCommentForStock([FromRoute] int stockId, CreateCommentDTO commentDTO) {
+                        if(!ModelState.IsValid) return BadRequest(ModelState); // Data validation via JSON
 
             if (!await _stockRepo.StockExists(stockId)) {
                 return BadRequest("Stock does not exist");
@@ -57,8 +61,10 @@ namespace api.Controllers
         }
 
         [HttpPut]
-        [Route("{id}")]
+        [Route("{id:int}")]
         public async Task<IActionResult> UpdateComment([FromRoute] int id, [FromBody] UpdateCommentDTO commentDTO) {
+                        if(!ModelState.IsValid) return BadRequest(ModelState); // Data validation via JSON
+
             var comment = await _commentRepo.UpdateCommentAsync(id, commentDTO.ToUpdateCommentDTO());
 
             if (comment == null) {
@@ -66,6 +72,21 @@ namespace api.Controllers
             } 
 
             return Ok(comment.ToCommentDTO());
+        }
+
+        [HttpDelete]
+        [Route("{id:int}")]
+
+        public async Task<IActionResult> DeleteComment([FromRoute] int id) {
+                        if(!ModelState.IsValid) return BadRequest(ModelState); // Data validation via JSON
+                        
+            var commentModel = await _commentRepo.DeleteCommentAsync(id);
+
+            if (commentModel == null) {
+                return NotFound("Comment does not exist");
+            } 
+
+            return NoContent();
         }
     }
 }
