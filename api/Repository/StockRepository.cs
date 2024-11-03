@@ -30,8 +30,15 @@ namespace api.Repository
                 stocks  = stocks.Where(x => x.Symbol.Contains(query.Symbol));
             }
 
-            
-            return await stocks.ToListAsync();
+            if(!string.IsNullOrWhiteSpace(query.SortBy)) {
+                if (query.SortBy.Equals("Symbol", StringComparison.OrdinalIgnoreCase)) {
+                    stocks = query.IsDescending ? stocks.OrderByDescending(s => s.Symbol) : stocks.OrderBy(s => s.Symbol); // Sorting data
+                }
+            }
+
+            var skipNo = (query.PageNumber - 1) * query.PageSize; // Subtracting one from page number to avoid off-by-one error
+
+            return await stocks.Skip(skipNo).Take(query.PageSize).ToListAsync();
         }
         public Task<bool> StockExists(int id) {
             return _context.Stock.AnyAsync(x => x.Id == id);
