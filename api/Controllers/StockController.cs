@@ -8,6 +8,7 @@ using api.Helpers;
 using api.Interfaces;
 using api.Mappers;
 using api.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,6 +27,7 @@ namespace api.Controllers
 
  
         [HttpGet]  // GET request
+        [Authorize]
         public async Task<IActionResult> GetAllAsync([FromQuery] QueryObject queryObject) {
             if(!ModelState.IsValid) return BadRequest(ModelState); // Data validation via JSON
 
