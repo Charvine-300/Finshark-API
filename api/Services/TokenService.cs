@@ -23,8 +23,10 @@ namespace api.Services
         public string CreateToken(AppUser appuser) {
             var claims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.Email, appuser.Email),
-                new Claim(JwtRegisteredClaimNames.GivenName, appuser.UserName),                
+               new Claim(JwtRegisteredClaimNames.Email, appuser.Email),
+    new Claim(JwtRegisteredClaimNames.GivenName, appuser.UserName),
+    new Claim(ClaimTypes.NameIdentifier, appuser.Id), // User ID claim
+    new Claim(ClaimTypes.Name, appuser.UserName)            
             };
 
             var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
