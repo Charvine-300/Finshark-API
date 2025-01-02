@@ -27,7 +27,7 @@ namespace api.DTOs.Stock
         public decimal LastDiv { get; set; }
 
 [Required]
-[MaxLength(10, ErrorMessage = "Industry cannot be over 10")]
+[MaxLength(30, ErrorMessage = "Industry cannot be over 10")]
         public string Industry { get; set; } = string.Empty;
 
 [Required]

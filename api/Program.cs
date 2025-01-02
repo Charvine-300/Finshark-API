@@ -91,7 +91,7 @@ builder.Services.AddAuthentication(options => {
 }
 );
 
-// Wiring up Repository patterns and dependecy injections
+// Wiring up Repository patterns and dependency injections
 builder.Services.AddScoped<IStockRepository, StockRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<ITokenService, TokenService>();
