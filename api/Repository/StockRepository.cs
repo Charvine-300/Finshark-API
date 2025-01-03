@@ -19,7 +19,7 @@ namespace api.Repository
             _context = context; // Dependency injection
         }
         public async Task<List<Stock>> GetAllAsync(QueryObject query) {
-            var stocks = _context.Stock.Include(x => x.Comments).AsQueryable();
+            var stocks = _context.Stock.Include(x => x.Comments).ThenInclude(c => c.AppUser).AsQueryable();
 
             // Checking for query parameters
             if (!string.IsNullOrWhiteSpace(query.CompanyName)) {
@@ -44,7 +44,7 @@ namespace api.Repository
             return _context.Stock.AnyAsync(x => x.Id == id);
         }
         public async Task<Stock> GetByIdAsync(int id) {
-            var model = await _context.Stock.Include(x => x.Comments).FirstOrDefaultAsync(x => x.Id == id);
+            var model = await _context.Stock.Include(x => x.Comments).ThenInclude(c => c.AppUser).FirstOrDefaultAsync(x => x.Id == id);
 
             if (model == null) {
                 return null;

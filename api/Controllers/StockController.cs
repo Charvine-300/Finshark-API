@@ -32,7 +32,7 @@ namespace api.Controllers
             if(!ModelState.IsValid) return BadRequest(ModelState); // Data validation via JSON
 
             var stocks = await _stockRepo.GetAllAsync(queryObject);
-            var stockList = stocks.Select(x => x.ToStockDTO()); // DTO for Stocks
+            var stockList = stocks.Select(x => x.ToStockDTO()).ToList(); // DTO for Stocks
 
             return Ok(stockList);
         }
