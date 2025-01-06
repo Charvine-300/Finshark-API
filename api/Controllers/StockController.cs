@@ -16,6 +16,8 @@ namespace api.Controllers
 {
     [Route("api/stocks")] // Base URL
     [ApiController] // API Controller marker
+    [Authorize]
+    
     public class StockController : ControllerBase
     {
 
@@ -27,7 +29,7 @@ namespace api.Controllers
 
  
         [HttpGet]  // GET request
-        [Authorize]
+       
         public async Task<IActionResult> GetAllAsync([FromQuery] QueryObject queryObject) {
             if(!ModelState.IsValid) return BadRequest(ModelState); // Data validation via JSON
 

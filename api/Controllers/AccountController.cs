@@ -12,6 +12,7 @@ namespace api.Controllers
 {
     [Route("api/account")]
     [ApiController]
+    
     public class AccountController: ControllerBase
     {
         private readonly UserManager<AppUser> _userManager;

@@ -18,6 +18,7 @@ namespace api.Controllers
 {
     [Route("api/comments")] // Base URL
     [ApiController] // API Controller marker
+    [Authorize]
     public class CommentController : ControllerBase
     {
         private readonly ICommentRepository _commentRepo;
@@ -35,7 +36,6 @@ namespace api.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         
         public async Task<IActionResult> GetAllAsync([FromQuery] CommentQueryObject queryObject) {
             if(!ModelState.IsValid) return BadRequest(ModelState); // Data validation via JSON

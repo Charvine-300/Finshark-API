@@ -13,7 +13,7 @@ namespace api.Controllers
 {
     [Route("api/portfolio")]
     [ApiController]
-
+    [Authorize]
     public class PortfolioController: ControllerBase
     {
         private readonly UserManager<AppUser> _userManager;
@@ -30,7 +30,6 @@ namespace api.Controllers
         }
 
         [HttpGet]
-        [Authorize]
 
         public async  Task<IActionResult> GetUserPortfolios() {
             var username = User.GetUsername();
@@ -41,7 +40,6 @@ namespace api.Controllers
         }
 
         [HttpPost]
-        [Authorize]
 
         public async Task<IActionResult> CreatePortfolio(string symbol) {
             var username = User.GetUsername();
@@ -80,8 +78,6 @@ namespace api.Controllers
         }
 
         [HttpDelete]
-        [Authorize]
-
 
         public async Task<IActionResult> DeletePortfolio(string symbol) {
             var username = User.GetUsername();
