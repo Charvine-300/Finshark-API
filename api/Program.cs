@@ -114,7 +114,7 @@ app.UseCors(x => x
     .AllowAnyMethod()
     .AllowAnyHeader()
     .AllowCredentials()
-    // .withOrigins("http://localhost:8080") This is what is done when it is deployed
+    .WithOrigins("http://localhost:5160") // This is what is done when it is deployed
     .SetIsOriginAllowed(origin => true)
     );
 
