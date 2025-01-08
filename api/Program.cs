@@ -1,9 +1,11 @@
+using System.Net;
 using api.Data;
 using api.Interfaces;
 using api.Models;
 using api.Repository;
 using api.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -54,7 +56,7 @@ builder.Services.AddControllers().AddNewtonsoftJson(options =>
 });
 
 
-// Add DbContext to the container
+// Add DbContext to the DI container
 builder.Services.AddDbContext<ApplicationDBContext>(options => {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
@@ -109,6 +111,29 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// Global Exception Handler
+app.UseExceptionHandler(config =>
+{
+    config.Run(async context =>
+    {
+        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+        context.Response.ContentType = "application/json";
+
+        var error = context.Features.Get<IExceptionHandlerFeature>();
+        if (error != null)
+        {
+            var ex = error.Error;
+
+            await context.Response.WriteAsync(new ErrorModel()
+            {
+                StatusCode = context.Response.StatusCode,
+                ErrorMessage = ex.Message
+            }.ToString()); // ToString() should serialize the object
+        }
+    });
+});
+
 
 app.UseCors(x => x
     .AllowAnyMethod()
