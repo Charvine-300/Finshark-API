@@ -1,0 +1,16 @@
+C:\Users\marvi\Desktop\Mercrator\.NET_Framework_Learn\FinShark\FinShark.Repository\bin\Debug\net8.0\FinShark.Repository.deps.json
+C:\Users\marvi\Desktop\Mercrator\.NET_Framework_Learn\FinShark\FinShark.Repository\bin\Debug\net8.0\FinShark.Repository.dll
+C:\Users\marvi\Desktop\Mercrator\.NET_Framework_Learn\FinShark\FinShark.Repository\bin\Debug\net8.0\FinShark.Repository.pdb
+C:\Users\marvi\Desktop\Mercrator\.NET_Framework_Learn\FinShark\FinShark.Repository\bin\Debug\net8.0\Finshark.Core.dll
+C:\Users\marvi\Desktop\Mercrator\.NET_Framework_Learn\FinShark\FinShark.Repository\bin\Debug\net8.0\Finshark.Core.pdb
+C:\Users\marvi\Desktop\Mercrator\.NET_Framework_Learn\FinShark\FinShark.Repository\obj\Debug\net8.0\FinShark.Repository.csproj.AssemblyReference.cache
+C:\Users\marvi\Desktop\Mercrator\.NET_Framework_Learn\FinShark\FinShark.Repository\obj\Debug\net8.0\FinShark.Repository.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\marvi\Desktop\Mercrator\.NET_Framework_Learn\FinShark\FinShark.Repository\obj\Debug\net8.0\FinShark.Repository.AssemblyInfoInputs.cache
+C:\Users\marvi\Desktop\Mercrator\.NET_Framework_Learn\FinShark\FinShark.Repository\obj\Debug\net8.0\FinShark.Repository.AssemblyInfo.cs
+C:\Users\marvi\Desktop\Mercrator\.NET_Framework_Learn\FinShark\FinShark.Repository\obj\Debug\net8.0\FinShark.Repository.csproj.CoreCompileInputs.cache
+C:\Users\marvi\Desktop\Mercrator\.NET_Framework_Learn\FinShark\FinShark.Repository\obj\Debug\net8.0\FinShark.Repository.sourcelink.json
+C:\Users\marvi\Desktop\Mercrator\.NET_Framework_Learn\FinShark\FinShark.Repository\obj\Debug\net8.0\FinShark.69569A51.Up2Date
+C:\Users\marvi\Desktop\Mercrator\.NET_Framework_Learn\FinShark\FinShark.Repository\obj\Debug\net8.0\FinShark.Repository.dll
+C:\Users\marvi\Desktop\Mercrator\.NET_Framework_Learn\FinShark\FinShark.Repository\obj\Debug\net8.0\refint\FinShark.Repository.dll
+C:\Users\marvi\Desktop\Mercrator\.NET_Framework_Learn\FinShark\FinShark.Repository\obj\Debug\net8.0\FinShark.Repository.pdb
+C:\Users\marvi\Desktop\Mercrator\.NET_Framework_Learn\FinShark\FinShark.Repository\obj\Debug\net8.0\ref\FinShark.Repository.dll

@@ -1,0 +1,13 @@
+C:\Users\marvi\Desktop\Mercrator\.NET_Framework_Learn\FinShark\FinShark.Core\obj\Debug\net8.0\FinShark.Core.csproj.AssemblyReference.cache
+C:\Users\marvi\Desktop\Mercrator\.NET_Framework_Learn\FinShark\FinShark.Core\obj\Debug\net8.0\FinShark.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\marvi\Desktop\Mercrator\.NET_Framework_Learn\FinShark\FinShark.Core\obj\Debug\net8.0\FinShark.Core.AssemblyInfoInputs.cache
+C:\Users\marvi\Desktop\Mercrator\.NET_Framework_Learn\FinShark\FinShark.Core\obj\Debug\net8.0\FinShark.Core.AssemblyInfo.cs
+C:\Users\marvi\Desktop\Mercrator\.NET_Framework_Learn\FinShark\FinShark.Core\obj\Debug\net8.0\FinShark.Core.csproj.CoreCompileInputs.cache
+C:\Users\marvi\Desktop\Mercrator\.NET_Framework_Learn\FinShark\FinShark.Core\obj\Debug\net8.0\FinShark.Core.sourcelink.json
+C:\Users\marvi\Desktop\Mercrator\.NET_Framework_Learn\FinShark\Finshark.Core\bin\Debug\net8.0\Finshark.Core.deps.json
+C:\Users\marvi\Desktop\Mercrator\.NET_Framework_Learn\FinShark\FinShark.Core\bin\Debug\net8.0\Finshark.Core.dll
+C:\Users\marvi\Desktop\Mercrator\.NET_Framework_Learn\FinShark\FinShark.Core\bin\Debug\net8.0\Finshark.Core.pdb
+C:\Users\marvi\Desktop\Mercrator\.NET_Framework_Learn\FinShark\FinShark.Core\obj\Debug\net8.0\Finshark.Core.dll
+C:\Users\marvi\Desktop\Mercrator\.NET_Framework_Learn\FinShark\FinShark.Core\obj\Debug\net8.0\refint\Finshark.Core.dll
+C:\Users\marvi\Desktop\Mercrator\.NET_Framework_Learn\FinShark\FinShark.Core\obj\Debug\net8.0\Finshark.Core.pdb
+C:\Users\marvi\Desktop\Mercrator\.NET_Framework_Learn\FinShark\Finshark.Core\obj\Debug\net8.0\ref\Finshark.Core.dll
