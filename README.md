@@ -1,1 +1,1 @@
-## Finshark
+## Finshark Stocks API
