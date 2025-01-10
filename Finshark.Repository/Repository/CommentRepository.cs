@@ -34,13 +34,13 @@ namespace api.Repository
         }
 
         public async Task<Comment> GetCommentByIdAsync(int id) {
-            var comment = await _context.Comment.Include(c => c.AppUserId).FirstOrDefaultAsync(x => x.Id == id);
+            var comment = await _context.Comment.Include(c => c.AppUser).FirstOrDefaultAsync(x => x.Id == id);
 
-if (comment == null) {
-    return null;
-}
+            if (comment == null) {
+                return null;
+            }
 
-return comment;
+            return comment;
         }
         public async Task<Comment> CreateCommentAsync(Comment commentModel) {
             await _context.Comment.AddAsync(commentModel);
