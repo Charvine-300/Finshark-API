@@ -626,9 +626,9 @@
           "Microsoft.EntityFrameworkCore.SqlServer": "8.0.10"
         },
         "runtime": {
-          "Finshark.Core.dll": {
+          "FinShark.Core.dll": {
             "assemblyVersion": "1.0.0",
-            "fileVersion": ""
+            "fileVersion": "1.0.0.0"
           }
         }
       },

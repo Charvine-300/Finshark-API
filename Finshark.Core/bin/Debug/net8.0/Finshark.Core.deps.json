@@ -6,13 +6,13 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v8.0": {
-      "Finshark.Core/1.0.0": {
+      "FinShark.Core/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "8.0.0",
           "Microsoft.EntityFrameworkCore.SqlServer": "8.0.10"
         },
         "runtime": {
-          "Finshark.Core.dll": {}
+          "FinShark.Core.dll": {}
         }
       },
       "Azure.Core/1.35.0": {
@@ -620,7 +620,7 @@
     }
   },
   "libraries": {
-    "Finshark.Core/1.0.0": {
+    "FinShark.Core/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

@@ -4,6 +4,8 @@ using api.Interfaces;
 using api.Models;
 using api.Repository;
 using api.Services;
+using Finshark.Core.Interfaces.Service;
+using Finshark.Services.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Identity;
@@ -100,6 +102,7 @@ builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IPortfolioRepository, PortfolioRepository>();
 builder.Services.AddScoped<IFMPService, FMPService>();
+builder.Services.AddScoped<IStockService, StockService>();
 builder.Services.AddHttpClient<IFMPService, FMPService>();
 
 var app = builder.Build();

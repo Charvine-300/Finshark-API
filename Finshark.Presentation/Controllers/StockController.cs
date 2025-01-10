@@ -8,6 +8,7 @@ using api.Helpers;
 using api.Interfaces;
 using api.Mappers;
 using api.Models;
+using Finshark.Core.Interfaces.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -21,10 +22,11 @@ namespace api.Controllers
     public class StockController : ControllerBase
     {
 
-        private readonly IStockRepository _stockRepo;
-        public StockController(IStockRepository stockRepo)
+        private readonly IStockService _stockService;
+
+        public StockController(IStockService stockService)
         {
-            _stockRepo = stockRepo;
+            _stockService = stockService;
         }
 
  
@@ -33,58 +35,55 @@ namespace api.Controllers
         public async Task<IActionResult> GetAllAsync([FromQuery] QueryObject queryObject) {
             if(!ModelState.IsValid) return BadRequest(ModelState); // Data validation via JSON
 
-            var stocks = await _stockRepo.GetAllAsync(queryObject);
-            var stockList = stocks.Select(x => x.ToStockDTO()).ToList(); // DTO for Stocks
+            var stockList = await _stockService.GetAllStocksAsync(queryObject);
 
             return Ok(stockList);
         }
 
         [HttpGet("{id:int}")] // GET request for details
         public async Task<IActionResult> GetById([FromRoute] int id) {
-                        if(!ModelState.IsValid) return BadRequest(ModelState); // Data validation via JSON
+            if(!ModelState.IsValid) return BadRequest(ModelState); // Data validation via JSON
 
-            var stock = await _stockRepo.GetByIdAsync(id);
+            var stock = await _stockService.GetStockByIdAsync(id);
 
             // Exception handling
             if (stock == null) {
                 return NotFound("Stock does not exist");
             } else {
-                return Ok(stock.ToStockDTO()); 
-            }
-                
+                return Ok(stock); 
+            }       
         }
 
         [HttpPost]  // Create Requests
         public async Task<IActionResult> CreateStock([FromBody] CreateStockDTO stockDTO) {
-                        if(!ModelState.IsValid) return BadRequest(ModelState); // Data validation via JSON
+            if(!ModelState.IsValid) return BadRequest(ModelState); // Data validation via JSON
 
-            var create = stockDTO.FromStockDTO();
-            await _stockRepo.CreateAsync(create);
+            var create = await _stockService.CreateStockAsync(stockDTO);
 
-            return CreatedAtAction(nameof(GetById), new { id = create.Id }, create.ToStockDTO());
+            return CreatedAtAction(nameof(GetById), new { id = create.Id }, create);
         }
 
         [HttpPut] 
         [Route("{id:int}")]
         public async Task<IActionResult> UpdateStock([FromRoute] int id, [FromBody] UpdateStockDTO updateDTO) {
-                        if(!ModelState.IsValid) return BadRequest(ModelState); // Data validation via JSON
+            if(!ModelState.IsValid) return BadRequest(ModelState); // Data validation via JSON
 
-            var stock = await _stockRepo.UpdateAsync(id, updateDTO);
+            var stock = await _stockService.UpdateStockAsync(id, updateDTO);
 
             if (stock == null) {
                 return NotFound();
             }
 
-            return Ok(stock.ToStockDTO());
+            return Ok(stock);
         }
 
         [HttpDelete]
         [Route("{id:int}")]
 
         public async Task<IActionResult> DeleteStock([FromRoute] int id) {
-                        if(!ModelState.IsValid) return BadRequest(ModelState); // Data validation via JSON
+            if(!ModelState.IsValid) return BadRequest(ModelState); // Data validation via JSON
                         
-            await _stockRepo.DeleteAsync(id);
+            await _stockService.DeleteStockAsync(id);
 
             return NoContent();
         }
