@@ -1,10 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using api.DTOs.Account;
 using api.Interfaces;
 using api.Models;
+using Finshark.Core.Interfaces.Service;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,11 +16,14 @@ namespace api.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly ITokenService _tokenService;
         private readonly SignInManager<AppUser> _signinManager;
-        public AccountController(UserManager<AppUser> userManager, ITokenService tokenService, SignInManager<AppUser> signInManager)
+
+        private readonly IAccountService _accountService;
+        public AccountController(UserManager<AppUser> userManager, ITokenService tokenService, SignInManager<AppUser> signInManager, IAccountService accountService)
         {
             _userManager = userManager;
             _tokenService = tokenService;
             _signinManager = signInManager;
+            _accountService = accountService;
         }
 
         [HttpPost]
@@ -34,63 +34,40 @@ namespace api.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = _userManager.Users.FirstOrDefault(x => x.UserName == loginDTO.Username.ToLower());
+            var userLogin = await _accountService.LoginAsync(loginDTO);
 
-            if (user == null) {
-                return Unauthorized("Invalid username");
-            }
+            if (userLogin == null) return Unauthorized("Invalid username");
 
-            var result = await _signinManager.CheckPasswordSignInAsync(user, loginDTO.Password, false);
+            else if (userLogin.ToString() == "Password incorrect") return Unauthorized("Password incorrect");
 
-            if (!result.Succeeded) return Unauthorized("Password incorrect");
-
-            return Ok(
-                new NewUserDTO 
-                {
-                    Username = user.UserName,
-                    Email = user.Email,
-                    Token = _tokenService.CreateToken(user),
-                }
-            );
+            return Ok(userLogin);
         }
 
-        [HttpPost] // Register User
-        [Route("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterDTO registerDto) {
-            try {
-                if(!ModelState.IsValid) {
-                    return BadRequest(ModelState);
-                }
+[HttpPost]
+[Route("register")]
+public async Task<IActionResult> Register([FromBody] RegisterDTO registerDto)
+{
+    if (!ModelState.IsValid)
+    {
+        return BadRequest(ModelState);
+    }
 
-                var appUser = new AppUser
-                {
-                    UserName = registerDto.Username,
-                    Email = registerDto.Email,
-                };
+    try
+    {
+        var newUser = await _accountService.RegisterAsync(registerDto);
 
-                var createdUser = await _userManager.CreateAsync(appUser, registerDto.Password);
-
-                if (createdUser.Succeeded) {
-                    var roleResult = await _userManager.AddToRoleAsync(appUser, "User"); // Assign role to user
-
-                    if (roleResult.Succeeded) {
-                        return Ok(
-                            new NewUserDTO
-                            {
-                                Username = registerDto.Username,
-                                Email = registerDto.Email,
-                                Token = _tokenService.CreateToken(appUser)
-                            }
-                        );
-                    } else {
-                        return StatusCode(500, roleResult.Errors);
-                    }
-                } else {
-                    return StatusCode(500, createdUser.Errors);
-                }
-            } catch (Exception err) {
-                return StatusCode(500, err);
-            }
+        if (newUser == null)
+        {
+            return StatusCode(500, "An error occurred while creating the user.");
         }
+
+        return Ok(newUser);
+    }
+    catch (Exception ex)
+    {
+        return StatusCode(500, ex.Message);
+    }
+}
+
     }
 }

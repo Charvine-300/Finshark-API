@@ -105,6 +105,7 @@ builder.Services.AddScoped<IFMPService, FMPService>();
 builder.Services.AddScoped<IStockService, StockService>();
 builder.Services.AddScoped<ICommentService, CommentService>();
 builder.Services.AddScoped<IPortfolioService, PortfolioService>();
+builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddHttpClient<IFMPService, FMPService>();
 
 
